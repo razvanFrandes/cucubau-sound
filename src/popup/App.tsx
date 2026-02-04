@@ -669,9 +669,9 @@ function AudioPlayer({ recording, onClose, onDelete, onUpdate }: AudioPlayerProp
   const displayDuration = duration > 0 ? duration : recording.duration
 
   return (
-    <div className="absolute inset-0 bg-[var(--bg-primary)] z-50 flex flex-col animate-fade-in">
+    <div className="flex-1 overflow-y-auto">
       {/* Header - sticky */}
-      <div className="flex items-center gap-3 px-4 py-3 border-b border-[var(--border-color)] bg-[var(--bg-primary)] sticky top-0 z-10">
+      <div className="sticky top-0 z-10 flex items-center gap-3 px-4 py-3 border-b border-[var(--border-color)] bg-[var(--bg-primary)]">
         <button
           onClick={handleClose}
           className="p-1.5 rounded-lg hover:bg-[var(--bg-tertiary)] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
@@ -726,7 +726,7 @@ function AudioPlayer({ recording, onClose, onDelete, onUpdate }: AudioPlayerProp
       </div>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col p-4 gap-4 overflow-y-auto">
+      <div className="p-4 space-y-4">
         {/* Waveform */}
         <div className="bg-[var(--bg-tertiary)] rounded-lg p-3 relative">
           {(isLoadingFile || !isReady) && !error && (
@@ -916,7 +916,7 @@ function AudioPlayer({ recording, onClose, onDelete, onUpdate }: AudioPlayerProp
       </div>
 
       {/* Keyboard hints */}
-      <div className="px-4 py-2 border-t border-[var(--border-color)] flex items-center justify-center gap-4 text-[10px] text-[var(--text-muted)]">
+      <div className="sticky bottom-0 px-4 py-2 border-t border-[var(--border-color)] flex items-center justify-center gap-4 text-[10px] text-[var(--text-muted)] bg-[var(--bg-primary)]">
         <span><kbd className="px-1 py-0.5 bg-[var(--bg-tertiary)] rounded">Space</kbd> Play</span>
         <span><kbd className="px-1 py-0.5 bg-[var(--bg-tertiary)] rounded">←→</kbd> Seek</span>
         <span><kbd className="px-1 py-0.5 bg-[var(--bg-tertiary)] rounded">L</kbd> Loop</span>
@@ -1469,7 +1469,7 @@ export default function App() {
   const [folders, setFolders] = useState<Folder[]>([])
   const [recordings, setRecordings] = useState<Recording[]>([])
   const [error, setError] = useState<string | null>(null)
-  const [activeTab, setActiveTab] = useState<'record' | 'library'>('record')
+  const [activeTab, setActiveTab] = useState<'record' | 'library' | 'player'>('record')
   const [selectedRecording, setSelectedRecording] = useState<Recording | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [previewingId, setPreviewingId] = useState<string | null>(null)
@@ -1731,21 +1731,22 @@ export default function App() {
 
   const toggleRecording = () => { isRecording ? stopRecording() : startRecording() }
 
+  const handleSelectRecording = (recording: Recording) => {
+    setSelectedRecording(recording)
+    setActiveTab('player')
+  }
+
+  const handleClosePlayer = () => {
+    setSelectedRecording(null)
+    setActiveTab('library')
+  }
+
   return (
-    <div className="relative flex flex-col h-full bg-[var(--bg-primary)] text-[var(--text-primary)]">
+    <div className="flex flex-col h-full bg-[var(--bg-primary)] text-[var(--text-primary)]">
       <div className="noise-overlay" />
 
-      {selectedRecording && (
-        <AudioPlayer
-          recording={selectedRecording}
-          onClose={() => setSelectedRecording(null)}
-          onDelete={() => deleteRecording(selectedRecording.id)}
-          onUpdate={updateRecording}
-        />
-      )}
-
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border-color)]">
+      <div className="flex-shrink-0 flex items-center justify-between px-4 py-3 border-b border-[var(--border-color)]">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-full bg-[var(--accent-red)] flex items-center justify-center shadow-[0_0_12px_rgba(255,59,92,0.5)]">
             <div className="w-2.5 h-2.5 rounded-full bg-white"></div>
@@ -1760,27 +1761,29 @@ export default function App() {
         )}
       </div>
 
-      {/* Tabs */}
-      <div className="flex border-b border-[var(--border-color)]">
-        <button
-          onClick={() => setActiveTab('record')}
-          className={`flex-1 py-3 text-sm font-medium transition-all relative ${activeTab === 'record' ? 'text-[var(--text-primary)]' : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'}`}
-        >
-          Record
-          {activeTab === 'record' && <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-[var(--accent-cyan)] rounded-full" />}
-        </button>
-        <button
-          onClick={() => setActiveTab('library')}
-          className={`flex-1 py-3 text-sm font-medium transition-all relative ${activeTab === 'library' ? 'text-[var(--text-primary)]' : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'}`}
-        >
-          Library
-          <span className="ml-1.5 badge bg-[var(--bg-tertiary)] text-[var(--text-muted)]">{recordings.length}</span>
-          {activeTab === 'library' && <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-[var(--accent-cyan)] rounded-full" />}
-        </button>
-      </div>
+      {/* Tabs - hide when in player */}
+      {activeTab !== 'player' && (
+        <div className="flex-shrink-0 flex border-b border-[var(--border-color)]">
+          <button
+            onClick={() => setActiveTab('record')}
+            className={`flex-1 py-3 text-sm font-medium transition-all relative ${activeTab === 'record' ? 'text-[var(--text-primary)]' : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'}`}
+          >
+            Record
+            {activeTab === 'record' && <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-[var(--accent-cyan)] rounded-full" />}
+          </button>
+          <button
+            onClick={() => setActiveTab('library')}
+            className={`flex-1 py-3 text-sm font-medium transition-all relative ${activeTab === 'library' ? 'text-[var(--text-primary)]' : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'}`}
+          >
+            Library
+            <span className="ml-1.5 badge bg-[var(--bg-tertiary)] text-[var(--text-muted)]">{recordings.length}</span>
+            {activeTab === 'library' && <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-[var(--accent-cyan)] rounded-full" />}
+          </button>
+        </div>
+      )}
 
       {/* Content */}
-      {activeTab === 'record' ? (
+      {activeTab === 'record' && (
         <RecordTab
           isRecording={isRecording}
           elapsed={elapsed}
@@ -1789,7 +1792,8 @@ export default function App() {
           onToggleRecording={toggleRecording}
           onOpenDownloads={openDownloads}
         />
-      ) : (
+      )}
+      {activeTab === 'library' && (
         <LibraryTab
           folders={folders}
           recordings={recordings}
@@ -1802,11 +1806,19 @@ export default function App() {
           onDeleteRecording={deleteRecording}
           onRenameRecording={renameRecording}
           onOpenDownloads={openDownloads}
-          onSelectRecording={setSelectedRecording}
+          onSelectRecording={handleSelectRecording}
           onPreviewRecording={handlePreviewRecording}
           previewingId={previewingId}
           expandedFolders={expandedFolders}
           onToggleFolder={toggleFolder}
+        />
+      )}
+      {activeTab === 'player' && selectedRecording && (
+        <AudioPlayer
+          recording={selectedRecording}
+          onClose={handleClosePlayer}
+          onDelete={() => { deleteRecording(selectedRecording.id); handleClosePlayer() }}
+          onUpdate={updateRecording}
         />
       )}
     </div>
