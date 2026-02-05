@@ -1,12 +1,23 @@
 # Dependencies
 node_modules/
 
-# Build output
-dist/
+# Source code (not published)
+src/
+scripts/
+public/
+index.html
+popup.html
+vite.config.ts
+tsconfig.json
+tailwind.config.js
+postcss.config.js
+pnpm-lock.yaml
+package-lock.json
 
 # IDE
 .idea/
 .vscode/
+.claude/
 *.swp
 *.swo
 
