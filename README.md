@@ -2,7 +2,7 @@
 
 A Chrome extension for capturing audio from any browser tab. Built for music producers, beatmakers, and sample collectors who want to quickly grab sounds from YouTube, SoundCloud, Spotify, or any website and organize them into a personal sound library.
 
-![Record Tab](images/Record.png)
+<img src="images/Record.png" width="350">
 
 ## Features
 
@@ -20,7 +20,7 @@ A Chrome extension for capturing audio from any browser tab. Built for music pro
 - **Star ratings** — Rate recordings 1-5 stars and filter by minimum rating
 - **Smart empty-folder hiding** — Folders with no matching recordings auto-hide when filters are active
 
-![Library View](images/Library.png)
+<img src="images/Library.png" width="350">
 
 ### Audio Player
 - **Waveform display** — Full waveform visualization powered by WaveSurfer.js
@@ -32,7 +32,7 @@ A Chrome extension for capturing audio from any browser tab. Built for music pro
 - **Volume normalization** — Normalize audio levels with one click
 - **Export WAV** — Export any recording as a WAV file with automatic file reveal in Finder/Explorer
 
-![Audio Player](images/Player.png)
+<img src="images/Player.png" width="350">
 
 ### Crop Mode
 - **Visual crop region** — Drag handles to select the portion you want to keep
@@ -40,7 +40,7 @@ A Chrome extension for capturing audio from any browser tab. Built for music pro
 - **Loop preview** — Preview your crop selection with loop playback before applying
 - **Apply crop** — Trim the recording to your selected region
 
-![Crop Mode](images/PlayerCrop.png)
+<img src="images/PlayerCrop.png" width="350">
 
 ### Metadata & Tagging
 - **Tags** — Add preset tags (drums, bass, melody, vocal, fx, synth, guitar, piano, etc.) or create custom tags
