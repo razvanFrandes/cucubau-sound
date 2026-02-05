@@ -1,8 +1,12 @@
 # CucuBau-Sound
 
-A Chrome extension for capturing audio from any browser tab. Built for music producers, beatmakers, and sample collectors who want to quickly grab sounds from YouTube, SoundCloud, Spotify, or any website and organize them into a personal sound library.
+A free Chrome extension for capturing audio from any browser tab. Built for music producers, beatmakers, and sample collectors who want to quickly grab sounds from YouTube, SoundCloud, Spotify, or any website and organize them into a personal sound library.
+
+No servers. No analytics. No tracking. No accounts. Everything runs locally in your browser. Made with love for music.
 
 <img src="images/Record.png" width="500">
+
+---
 
 ## Features
 
@@ -49,33 +53,40 @@ A Chrome extension for capturing audio from any browser tab. Built for music pro
 - **Notes** — Add freeform notes to any recording
 - **BPM** — Store the tempo alongside each recording
 
+---
+
 ## Installation
 
-1. Download or clone this repository
-2. Open Chrome and go to `chrome://extensions/`
-3. Enable **Developer mode** (toggle in the top right)
-4. Click **Load unpacked**
-5. Select the `dist` folder from this repository
-6. The CucuBau-Sound icon will appear in your Chrome toolbar
+1. **Download** — Click the green **Code** button above, then **Download ZIP**, and unzip the folder
+2. **Open Chrome extensions** — Type `chrome://extensions/` in your address bar and press Enter
+3. **Enable Developer mode** — Toggle the switch in the top-right corner
+4. **Load the extension** — Click **Load unpacked** and select the `dist` folder from the unzipped download
+5. **Done** — The CucuBau-Sound icon appears in your Chrome toolbar. Click it to open.
+
+---
 
 ## How to Use
 
-1. Navigate to any website with audio (YouTube, SoundCloud, etc.)
-2. Click the CucuBau-Sound extension icon in your toolbar
-3. Press `R` or click the microphone button to start recording
+1. Go to any website with audio (YouTube, SoundCloud, Spotify, etc.)
+2. Click the **CucuBau-Sound** icon in your toolbar
+3. Press **R** or click the microphone button to start recording
 4. Click again to stop — the recording is automatically saved to your library
 5. Switch to the **Library** tab to browse, organize, and play back your recordings
 
-## Permissions
+---
 
-- **tabCapture** — Required to capture audio from browser tabs
-- **activeTab** — Access the current tab for recording
-- **storage** — Save recordings and library data locally
-- **downloads** — Export recordings as WAV files
-- **tabs** — Read tab titles and URLs for metadata
+## Privacy
 
-All data is stored locally in your browser. Nothing is sent to any server.
+This extension is 100% local:
+
+- No server, no backend, no cloud
+- No analytics, no tracking, no telemetry
+- No account required
+- All recordings and data stay in your browser's local storage
+- The only network permission is for capturing audio from browser tabs
+
+---
 
 ## License
 
-MIT
+MIT — Free and open source, forever.
