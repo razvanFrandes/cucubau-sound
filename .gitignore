@@ -1,23 +1,12 @@
 # Dependencies
 node_modules/
 
-# Source code (not published)
-src/
-scripts/
-public/
-index.html
-popup.html
-vite.config.ts
-tsconfig.json
-tailwind.config.js
-postcss.config.js
-pnpm-lock.yaml
-package-lock.json
+# Claude
+.claude/
 
 # IDE
 .idea/
 .vscode/
-.claude/
 *.swp
 *.swo
 
